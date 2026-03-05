@@ -57,7 +57,7 @@
 	<key>fontAllowsDisableAntialias</key>
 	<integer>1</integer>
 	<key>name</key>
-	<string>Bang9</string>
+	<string>bang</string>
 	<key>type</key>
 	<string>Window Settings</string>
 </dict>
