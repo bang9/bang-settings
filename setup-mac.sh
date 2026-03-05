@@ -10,6 +10,7 @@
 # ║  4. Terminal Profile   - "bang" profile for Terminal.app            ║
 # ║  5. GUI Apps           - Pasta (App Store), Rectangle (Homebrew)   ║
 # ║  6. CLI Tools          - claude, claude-irc, vaultkey, xcodegen    ║
+# ║  7. Claude Code Config - commands, skills, settings, statusline    ║
 # ║                                                                    ║
 # ║  All steps are idempotent — safe to run multiple times.            ║
 # ║                                                                    ║
@@ -211,6 +212,38 @@ else
   brew install xcodegen
   echo "[done] xcodegen installed"
 fi
+
+###############################################################################
+# 7. Claude Code Config                                                       #
+#    - Source: bang9/claude-code-settings repo                                 #
+#    - Copies: commands/, skills/, settings.json, statusline-custom.sh        #
+#    - Does NOT touch: projects/, memory/, tasks/, ide/ (local state)         #
+#                                                                             #
+#    Check: compare settings.json with remote                                 #
+#    Install: clone repo to temp dir, rsync selected paths to ~/.claude/      #
+###############################################################################
+echo ""
+echo "=== 7. Claude Code Config ==="
+
+CLAUDE_SETTINGS_REPO="https://github.com/bang9/claude-code-settings.git"
+CLAUDE_DIR="$HOME/.claude"
+TMPDIR_SETTINGS=$(mktemp -d /tmp/claude-code-settings.XXXXXX)
+
+echo "[info] Fetching claude-code-settings..."
+git clone --depth 1 --quiet "$CLAUDE_SETTINGS_REPO" "$TMPDIR_SETTINGS"
+
+# Ensure ~/.claude exists
+mkdir -p "$CLAUDE_DIR"
+
+# Copy commands, skills, settings, statusline (overwrite to stay in sync)
+rsync -a "$TMPDIR_SETTINGS/.claude/commands/" "$CLAUDE_DIR/commands/"
+rsync -a "$TMPDIR_SETTINGS/.claude/skills/" "$CLAUDE_DIR/skills/"
+cp -f "$TMPDIR_SETTINGS/.claude/settings.json" "$CLAUDE_DIR/settings.json"
+cp -f "$TMPDIR_SETTINGS/.claude/statusline-custom.sh" "$CLAUDE_DIR/statusline-custom.sh"
+chmod +x "$CLAUDE_DIR/statusline-custom.sh"
+
+rm -rf "$TMPDIR_SETTINGS"
+echo "[done] Claude Code config synced to ~/.claude/"
 
 ###############################################################################
 # Done                                                                        #

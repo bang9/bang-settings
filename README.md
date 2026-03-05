@@ -18,6 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/bang9/bang-settings/main/setup-mac.
 | 4. Terminal Profile | Import and apply `bang` profile |
 | 5. GUI Apps | Pasta (clipboard manager), Rectangle (window manager) |
 | 6. CLI Tools | claude, claude-irc, vaultkey, xcodegen |
+| 7. Claude Code Config | commands, skills, settings, statusline |
 
 All steps are idempotent — safe to run multiple times.
 
