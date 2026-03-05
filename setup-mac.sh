@@ -216,11 +216,12 @@ fi
 ###############################################################################
 # 7. Claude Code Config                                                       #
 #    - Source: bang9/claude-code-settings repo                                 #
-#    - Copies: commands/, skills/, settings.json, statusline-custom.sh        #
+#    - Copies: commands/, skills/, statusline-custom.sh (overwrite)           #
+#    - settings.json: deep merge (repo = base, local = override)              #
 #    - Does NOT touch: projects/, memory/, tasks/, ide/ (local state)         #
 #                                                                             #
-#    Check: compare settings.json with remote                                 #
-#    Install: clone repo to temp dir, rsync selected paths to ~/.claude/      #
+#    Check: jq available                                                      #
+#    Install: clone repo to temp dir, rsync/merge into ~/.claude/             #
 ###############################################################################
 echo ""
 echo "=== 7. Claude Code Config ==="
@@ -235,12 +236,33 @@ git clone --depth 1 --quiet "$CLAUDE_SETTINGS_REPO" "$TMPDIR_SETTINGS"
 # Ensure ~/.claude exists
 mkdir -p "$CLAUDE_DIR"
 
-# Copy commands, skills, settings, statusline (overwrite to stay in sync)
+# Copy commands, skills, statusline (overwrite to stay in sync with repo)
 rsync -a "$TMPDIR_SETTINGS/.claude/commands/" "$CLAUDE_DIR/commands/"
 rsync -a "$TMPDIR_SETTINGS/.claude/skills/" "$CLAUDE_DIR/skills/"
-cp -f "$TMPDIR_SETTINGS/.claude/settings.json" "$CLAUDE_DIR/settings.json"
 cp -f "$TMPDIR_SETTINGS/.claude/statusline-custom.sh" "$CLAUDE_DIR/statusline-custom.sh"
 chmod +x "$CLAUDE_DIR/statusline-custom.sh"
+
+# Deep merge settings.json (repo = base, local = override)
+#   - New keys from repo are added
+#   - Existing local keys are preserved (local wins)
+REMOTE_SETTINGS="$TMPDIR_SETTINGS/.claude/settings.json"
+LOCAL_SETTINGS="$CLAUDE_DIR/settings.json"
+
+if ! command -v jq &>/dev/null; then
+  echo "[info] jq not found. Installing via Homebrew..."
+  brew install jq
+fi
+
+if [[ -f "$LOCAL_SETTINGS" ]]; then
+  # Deep merge: repo * local (local overrides repo)
+  jq -s '.[0] * .[1]' "$REMOTE_SETTINGS" "$LOCAL_SETTINGS" > "$LOCAL_SETTINGS.tmp"
+  mv "$LOCAL_SETTINGS.tmp" "$LOCAL_SETTINGS"
+  echo "[done] settings.json — deep merged (local settings preserved)"
+else
+  # No local settings, just copy
+  cp -f "$REMOTE_SETTINGS" "$LOCAL_SETTINGS"
+  echo "[done] settings.json — copied from repo"
+fi
 
 rm -rf "$TMPDIR_SETTINGS"
 echo "[done] Claude Code config synced to ~/.claude/"
