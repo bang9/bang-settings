@@ -34,7 +34,7 @@ if command -v brew &>/dev/null; then
   echo "[skip] Homebrew already installed ($(brew --version | head -1))"
 else
   echo "[install] Homebrew not found. Installing..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
   echo "[done] Homebrew installed"
 fi
 
@@ -43,7 +43,7 @@ if command -v mas &>/dev/null; then
   echo "[skip] mas already installed ($(mas version))"
 else
   echo "[install] mas not found. Installing via Homebrew..."
-  brew install mas
+  brew install mas < /dev/null
   echo "[done] mas installed"
 fi
 
@@ -151,7 +151,7 @@ if mas list 2>/dev/null | grep -q "$PASTA_ID"; then
   echo "[skip] Pasta — already installed"
 else
   echo "[install] Pasta — installing from App Store (ID: ${PASTA_ID})..."
-  mas install "$PASTA_ID"
+  mas install "$PASTA_ID" < /dev/null
   echo "[done] Pasta installed"
 fi
 
@@ -160,7 +160,7 @@ if brew list --cask rectangle &>/dev/null; then
   echo "[skip] Rectangle — already installed"
 else
   echo "[install] Rectangle — installing via Homebrew Cask..."
-  brew install --cask rectangle
+  brew install --cask rectangle < /dev/null
   echo "[done] Rectangle installed"
 fi
 
@@ -182,7 +182,7 @@ if command -v claude &>/dev/null; then
   echo "[skip] claude — already installed"
 else
   echo "[install] claude — installing Claude Code CLI..."
-  curl -fsSL https://claude.ai/install.sh | bash
+  curl -fsSL https://claude.ai/install.sh | bash -s -- < /dev/null
   echo "[done] claude installed"
 fi
 
@@ -191,7 +191,7 @@ if command -v claude-irc &>/dev/null; then
   echo "[skip] claude-irc — already installed"
 else
   echo "[install] claude-irc — installing..."
-  curl -fsSL https://raw.githubusercontent.com/bang9/ai-tools/main/claude-irc/install.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/bang9/ai-tools/main/claude-irc/install.sh | bash -s -- < /dev/null
   echo "[done] claude-irc installed"
 fi
 
@@ -200,7 +200,7 @@ if command -v vaultkey &>/dev/null; then
   echo "[skip] vaultkey — already installed"
 else
   echo "[install] vaultkey — installing..."
-  curl -fsSL https://raw.githubusercontent.com/bang9/ai-tools/main/vaultkey/install.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/bang9/ai-tools/main/vaultkey/install.sh | bash -s -- < /dev/null
   echo "[done] vaultkey installed"
 fi
 
@@ -209,7 +209,7 @@ if command -v xcodegen &>/dev/null; then
   echo "[skip] xcodegen — already installed"
 else
   echo "[install] xcodegen — installing via Homebrew..."
-  brew install xcodegen
+  brew install xcodegen < /dev/null
   echo "[done] xcodegen installed"
 fi
 
@@ -250,7 +250,7 @@ LOCAL_SETTINGS="$CLAUDE_DIR/settings.json"
 
 if ! command -v jq &>/dev/null; then
   echo "[info] jq not found. Installing via Homebrew..."
-  brew install jq
+  brew install jq < /dev/null
 fi
 
 if [[ -f "$LOCAL_SETTINGS" ]]; then

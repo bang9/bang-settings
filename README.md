@@ -5,7 +5,7 @@ Personal macOS settings and setup automation.
 ## Quick Setup
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/bang9/bang-settings/main/setup-mac.sh | bash
+bash <(curl -fsSL https://raw.githubusercontent.com/bang9/bang-settings/main/setup-mac.sh)
 ```
 
 ## What it does
