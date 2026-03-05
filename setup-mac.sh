@@ -147,7 +147,7 @@ echo "=== 5. GUI Apps ==="
 
 # --- Pasta (Mac App Store) ---
 PASTA_ID=1438389787
-if mas list 2>/dev/null | grep -q "$PASTA_ID"; then
+if [[ -d "/Applications/Pasta.app" ]] || mas list 2>/dev/null | grep -q "$PASTA_ID"; then
   echo "[skip] Pasta — already installed"
 else
   echo "[install] Pasta — installing from App Store (ID: ${PASTA_ID})..."
@@ -156,7 +156,7 @@ else
 fi
 
 # --- Rectangle (Homebrew Cask) ---
-if brew list --cask rectangle &>/dev/null; then
+if [[ -d "/Applications/Rectangle.app" ]]; then
   echo "[skip] Rectangle — already installed"
 else
   echo "[install] Rectangle — installing via Homebrew Cask..."
