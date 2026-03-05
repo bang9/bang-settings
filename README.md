@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/bang9/bang-settings/main/setup-mac.
 | 3. Keyboard Shortcuts | `Cmd+Shift+W` → New Terminal at Folder |
 | 4. Terminal Profile | Import and apply `bang` profile |
 | 5. GUI Apps | Pasta (clipboard manager), Rectangle (window manager) |
-| 6. CLI Tools | claude, claude-irc, vaultkey |
+| 6. CLI Tools | claude, claude-irc, vaultkey, xcodegen |
 
 All steps are idempotent — safe to run multiple times.
 

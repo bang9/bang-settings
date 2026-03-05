@@ -9,7 +9,7 @@
 # ║  3. Keyboard Shortcuts - Cmd+Shift+W (New Terminal at Folder)      ║
 # ║  4. Terminal Profile   - "bang" profile for Terminal.app            ║
 # ║  5. GUI Apps           - Pasta (App Store), Rectangle (Homebrew)   ║
-# ║  6. CLI Tools          - claude, claude-irc, vaultkey              ║
+# ║  6. CLI Tools          - claude, claude-irc, vaultkey, xcodegen    ║
 # ║                                                                    ║
 # ║  All steps are idempotent — safe to run multiple times.            ║
 # ║                                                                    ║
@@ -168,9 +168,10 @@ fi
 #    - claude     : Claude Code CLI                                           #
 #    - claude-irc : inter-session communication for Claude Code agents        #
 #    - vaultkey   : encrypted secrets manager                                 #
+#    - xcodegen   : generate Xcode projects from YAML spec                    #
 #                                                                             #
 #    Check: command -v <tool_name>                                            #
-#    Install: curl remote install script and pipe to bash                     #
+#    Install: curl / brew                                                     #
 ###############################################################################
 echo ""
 echo "=== 6. CLI Tools ==="
@@ -200,6 +201,15 @@ else
   echo "[install] vaultkey — installing..."
   curl -fsSL https://raw.githubusercontent.com/bang9/ai-tools/main/vaultkey/install.sh | bash
   echo "[done] vaultkey installed"
+fi
+
+# --- xcodegen (Xcode project generator) ---
+if command -v xcodegen &>/dev/null; then
+  echo "[skip] xcodegen — already installed"
+else
+  echo "[install] xcodegen — installing via Homebrew..."
+  brew install xcodegen
+  echo "[done] xcodegen installed"
 fi
 
 ###############################################################################
