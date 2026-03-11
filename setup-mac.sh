@@ -51,6 +51,7 @@ fi
 # 2. Shell Aliases                                                            #
 #    - term          : open Terminal.app in current directory                  #
 #    - claude-sudo   : run claude with --dangerously-skip-permissions         #
+#    - codex-sudo    : run codex with --dangerously-bypass-approvals-and-sandbox#
 #                                                                             #
 #    Check: grep for existing alias definition in .zshrc                      #
 #    Install: append alias line to .zshrc                                     #
