@@ -73,7 +73,8 @@ add_alias() {
 }
 
 add_alias "term" "open -a Terminal ."
-add_alias "claude-sudo" "claude --dangerously-skip-permissions"
+add_alias "claude-sudo" "claude --dangerously-skip-permissions --effort max"
+add_alias "codex-sudo" "codex --dangerously-bypass-approvals-and-sandbox"
 
 ###############################################################################
 # 3. Keyboard Shortcuts                                                       #
