@@ -9,7 +9,7 @@
 # ║  3. Keyboard Shortcuts - Cmd+Shift+W (New Terminal at Folder)      ║
 # ║  4. Terminal Profile   - "bang" profile for Terminal.app            ║
 # ║  5. GUI Apps           - Pasta (App Store), Rectangle (Homebrew)   ║
-# ║  6. CLI Tools          - claude, claude-irc, vaultkey, xcodegen    ║
+# ║  6. CLI Tools      - claude, codex, claude-irc, vaultkey, xcodegen ║
 # ║  7. Claude Code Config - commands, skills, settings, statusline    ║
 # ║                                                                    ║
 # ║  All steps are idempotent — safe to run multiple times.            ║
@@ -169,6 +169,7 @@ fi
 ###############################################################################
 # 6. CLI Tools                                                                #
 #    - claude     : Claude Code CLI                                           #
+#    - codex      : OpenAI Codex CLI                                          #
 #    - claude-irc : inter-session communication for Claude Code agents        #
 #    - vaultkey   : encrypted secrets manager                                 #
 #    - xcodegen   : generate Xcode projects from YAML spec                    #
@@ -213,6 +214,15 @@ else
   echo "[install] xcodegen — installing via Homebrew..."
   brew install xcodegen < /dev/null
   echo "[done] xcodegen installed"
+fi
+
+# --- codex (OpenAI Codex CLI) ---
+if command -v codex &>/dev/null; then
+  echo "[skip] codex — already installed"
+else
+  echo "[install] codex — installing via Homebrew Cask..."
+  brew install --cask codex < /dev/null
+  echo "[done] codex installed"
 fi
 
 ###############################################################################
