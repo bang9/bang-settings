@@ -9,7 +9,7 @@
 # ║  3. Keyboard Shortcuts - Cmd+Shift+W (New Terminal at Folder)      ║
 # ║  4. Terminal Profile   - "bang" profile for Terminal.app            ║
 # ║  5. GUI Apps           - Pasta (App Store), Rectangle (Homebrew)   ║
-# ║  6. CLI Tools      - claude, codex, claude-irc, vaultkey, xcodegen ║
+# ║  6. CLI Tools  - claude, codex, claude-irc, vaultkey, xcodegen, tmux ║
 # ║  7. Claude Code Config - commands, skills, settings, statusline    ║
 # ║                                                                    ║
 # ║  All steps are idempotent — safe to run multiple times.            ║
@@ -173,6 +173,7 @@ fi
 #    - claude-irc : inter-session communication for Claude Code agents        #
 #    - vaultkey   : encrypted secrets manager                                 #
 #    - xcodegen   : generate Xcode projects from YAML spec                    #
+#    - tmux       : terminal multiplexer                                      #
 #                                                                             #
 #    Check: command -v <tool_name>                                            #
 #    Install: curl / brew                                                     #
@@ -223,6 +224,15 @@ else
   echo "[install] codex — installing via Homebrew Cask..."
   brew install --cask codex < /dev/null
   echo "[done] codex installed"
+fi
+
+# --- tmux (terminal multiplexer) ---
+if command -v tmux &>/dev/null; then
+  echo "[skip] tmux — already installed"
+else
+  echo "[install] tmux — installing via Homebrew..."
+  brew install tmux < /dev/null
+  echo "[done] tmux installed"
 fi
 
 ###############################################################################
